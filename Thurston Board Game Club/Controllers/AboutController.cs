@@ -4,26 +4,26 @@ using Thurston_Board_Game_Club.Models;
 
 namespace Thurston_Board_Game_Club.Controllers
 {
-    public class HomeController : Controller
+    public class AboutController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<AboutController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public AboutController(ILogger<AboutController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult About()
         {
             return View();
         }
 
-        public IActionResult History()
+        public IActionResult Links()
         {
             return View();
         }
 
-        public IActionResult Message()
+        public IActionResult FAQ()
         {
             return View();
         }
