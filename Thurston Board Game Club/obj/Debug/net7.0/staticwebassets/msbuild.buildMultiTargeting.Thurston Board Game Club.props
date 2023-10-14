@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Thurston Board Game Club.props" />
-</Project>
