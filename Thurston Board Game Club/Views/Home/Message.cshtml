@@ -27,13 +27,16 @@
 
 <div class="text-center">
     <form asp-action="Message" asp-controller="Home">
-        <label asp-for="From">From</label>
+        <label asp-for="From">From:</label>
         <input asp-for="From" /><br />
 
-        <label asp-for="To">To</label>
+        <label asp-for="To">To:</label>
         <input asp-for="To" /><br />
 
-        <label asp-for="Text">Text</label>
+        <label asp-for="Priority">Priority (1-10):</label>
+        <input asp-for="Priority" /><br />
+
+        <label asp-for="Text">Text:</label>
         <textarea asp-for="Text"></textarea><br />
 
         <button type="submit">Send</button>
