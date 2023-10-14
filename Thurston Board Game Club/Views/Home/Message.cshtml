@@ -1,10 +1,32 @@
-﻿@model Message
+﻿@* @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Message
 @{
     ViewData["Title"] = "Message";
 }
 
 <div class="text-center">
-    <form method="post">
+    <form asp-action="Message" asp-controller="Home" method="post">
+        <label asp-for="From">From</label>
+        <input asp-for="From" /><br />
+
+        <label asp-for="To">To</label>
+        <input asp-for="To" /><br />
+
+        <label asp-for="Text">Text</label>
+        <textarea asp-for="Text"></textarea><br />
+
+        <button type="submit">Send</button>
+    </form>
+</div> *@
+
+@model Message
+@{
+    ViewData["Title"] = "Message";
+}
+
+<div class="text-center">
+    <form asp-action="Message" asp-controller="Home">
         <label asp-for="From">From</label>
         <input asp-for="From" /><br />
 

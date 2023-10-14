@@ -28,17 +28,28 @@ namespace Thurston_Board_Game_Club.Controllers
             return View();
         }
 
-        public IActionResult UserMessage()
+        [HttpPost]
+        public IActionResult Message(Message model)
         {
+            if (ModelState.IsValid)
+            {
+                model.Date = DateTime.Now;
+                return RedirectToAction("UserMessage", "Home", model);
+            }
+            else
+            {
+                var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+            }
+
             return View();
         }
 
-        [HttpPost]
-        public IActionResult SendMessage(Message model)
+        public IActionResult UserMessage(Message model)
         {
-            model.Date = DateTime.Now;
-            return RedirectToAction("UserMessage", "Home", model);
-/*            return View("Home/UserMessage.cshtml", model);*/
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
