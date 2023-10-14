@@ -1,0 +1,15 @@
+﻿@model Message
+
+<div class="text-center">
+    <h1 class="display-4">Chat With Our Community</h1>
+    @if (@Model != null)
+    {
+        <p>
+            <h2>Message</h2>
+            From: @Model.From<br />
+            To: @Model.To <br />
+            Text: @Model.Text<br />
+            Date Sent: @Model.Date.ToShortDateString()
+        </p>
+    }
+</div>
