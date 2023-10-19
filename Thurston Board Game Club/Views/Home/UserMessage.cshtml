@@ -4,14 +4,33 @@
     <h1 class="display-4">Chat With Our Community</h1>
     @if (Model != null)
     {
-        <p>
-            <h2>Message</h2>
-            From: @Model.From<br />
-            To: @Model.To <br />
-            Subject: @Model.Subject <br />
-            Text: @Model.Text<br />
-            Priority: @Model.Priority<br />
-            Date Sent: @Model.Date.ToShortDateString()
-        </p>
+        <div class="container">
+            <p>
+                <h2>Message</h2>
+                <div class="row">
+                    From: @Model.From
+                </div>
+
+                <div class="row">
+                To: @Model.To
+                </div>
+
+                <div class="row">
+                Subject: @Model.Subject
+                </div>
+
+                <div class="row">
+                Text: @Model.Text
+                </div>
+
+                <div class="row">
+                Priority: @Model.Priority
+                </div>
+
+                <div class="row">
+                Date Sent: @Model.Date.ToShortDateString()
+                </div>
+            </p>
+        </div>
     }
 </div>

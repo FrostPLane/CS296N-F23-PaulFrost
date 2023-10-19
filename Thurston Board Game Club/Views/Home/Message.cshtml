@@ -1,47 +1,45 @@
-﻿@* @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
-@model Message
+﻿@model Message
 @{
     ViewData["Title"] = "Message";
 }
 
-<div class="text-center">
-    <form asp-action="Message" asp-controller="Home" method="post">
-        <label asp-for="From">From</label>
-        <input asp-for="From" /><br />
-
-        <label asp-for="To">To</label>
-        <input asp-for="To" /><br />
-
-        <label asp-for="Text">Text</label>
-        <textarea asp-for="Text"></textarea><br />
-
-        <button type="submit">Send</button>
-    </form>
-</div> *@
-
-@model Message
-@{
-    ViewData["Title"] = "Message";
-}
-
-<div class="text-center">
+<div class="container">
     <form asp-action="Message" asp-controller="Home">
-        <label asp-for="From">From:</label>
-        <input asp-for="From" /><br />
+        <div class="row">
+            <div class="mb-1">
+                <label asp-for="From" class="form-label">From:</label>
+                <input asp-for="From" class="form-control" /><br />
+            </div>
+        </div>
 
-        <label asp-for="To">To:</label>
-        <input asp-for="To" /><br />
+        <div class="row">
+            <div class="mb-1">
+                <label asp-for="To" class="form-label">To:</label>
+                <input asp-for="To" class="form-control" /><br />
+            </div>
+        </div>
 
-        <label asp-for="Subject">Subject:</label>
-        <input asp-for="Subject" /><br />
+        <div class="row">
+            <div class="mb-1">
+                <label asp-for="Subject" class="form-label">Subject:</label>
+                <input asp-for="Subject" class="form-control" /><br />
+            </div>
+        </div>
 
-        <label asp-for="Priority">Priority (1-10):</label>
-        <input asp-for="Priority" /><br />
+        <div class="row">
+            <div class="mb-1">
+                <label asp-for="Priority" class="form-label">Priority:</label>
+                <input asp-for="Priority" class="form-control" /><br />
+            </div>
+        </div>
 
-        <label asp-for="Text">Text:</label>
-        <textarea asp-for="Text"></textarea><br />
+        <div class="row">
+            <div class="mb-1">
+                <label asp-for="Text" class="form-label text-start">Text:</label>
+                <textarea asp-for="Text" type="text" class="form-control"></textarea><br />
+            </div>
+        </div>
 
-        <button type="submit">Send</button>
+        <button type="submit" class="btn btn-secondary">Send</button>
     </form>
 </div>

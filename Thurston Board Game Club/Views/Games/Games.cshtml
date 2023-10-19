@@ -2,17 +2,17 @@
     ViewData["Title"] = "Games";
 }
 
-<div class="text-center">
+<div class="text-center container">
     <h1 class="display-4">Games We Have And Donate Games</h1>
     <p>Here at TBGC we have plenty of board games already available but we can always use more! If you have any to spare we would be honored to receive them.</p>
 </div>
 
-<div class="list-group">
-    <a asp-controller="Games" asp-action="OwnedGames">
-        Games We Have
-    </a>
+<div class="container">
+    <div class="row">
+        <a asp-controller="Games" asp-action="OwnedGames">Games We Have</a>
+    </div>
 
-    <a asp-controller="Games" asp-action="DonateGames">
-        Donate Games
-    </a>
+    <div class="row">
+        <a asp-controller="Games" asp-action="DonateGames">Donate Games</a>
+    </div>
 </div>
