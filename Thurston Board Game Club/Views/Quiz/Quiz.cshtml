@@ -1,0 +1,49 @@
+﻿@model QuizQuestions
+
+@{
+    ViewData["Title"] = "Quiz";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Board Game Quiz</h1>
+    <p>Let's Test How Well You Know Monopoly</p>
+</div>
+
+<div class="container">
+<form method="post">
+
+    <div class="col">
+        <div class="row p-2">
+            @Model.Questions[1]<br />
+            <input name="answer1" value="@Model.InputAnswers[1]"/> 
+            @( (Model.InputAnswers[1] == "") ? "" : Model.Results[1] ? "Right" : "Wrong")
+            <br />
+        </div>
+
+        <div class="row p-2">
+            @Model.Questions[2]<br />
+            <input name="answer2" value="@Model.InputAnswers[2]" />
+            @((Model.InputAnswers[2] == "") ? "" : Model.Results[2] ? "Right" : "Wrong")
+            <br />
+        </div>
+
+        <div class="row p-2">
+            @Model.Questions[3]<br />
+            <input name="answer3" value="@Model.InputAnswers[3]" />
+            @((Model.InputAnswers[3] == "") ? "" : Model.Results[3] ? "Right" : "Wrong")
+            <br />
+        </div>
+
+        <div class="row p-2">
+            @Model.Questions[4]<br />
+            <input name="answer4" value="@Model.InputAnswers[4]" />
+            @((Model.InputAnswers[4] == "") ? "" : Model.Results[4] ? "Right" : "Wrong")
+            <br />
+        </div>
+
+        <div class="row p-2">
+            <input type="submit" />
+        </div>
+    </div>
+</form>
+</div>
