@@ -46,11 +46,11 @@ namespace Thurston_Board_Game_Club.Controllers
 
             return View();
         }
-
+/*
         public IActionResult UserMessage(Message model)
         {
             return View(model);
-        }
+        }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
