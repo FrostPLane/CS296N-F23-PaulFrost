@@ -1,0 +1,50 @@
+﻿@model List<Message>
+
+@{
+    ViewData["Title"] = "Message Board";
+}
+
+<div class="text-center container">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div class="text-center row">
+    <a asp-controller="Home" asp-action="Message">Send A Message</a>
+</div>
+
+<div class="text-center container" name="messageBoard">
+    @foreach (var message in Model)
+    {
+        @if (message != null)
+        {
+            <div class="text-center container">
+                <p>
+                    <div class="row">
+                        From: @message.From
+                    </div>
+
+                    <div class="row">
+                        To: @message.To
+                    </div>
+
+                    <div class="row">
+                        Subject: @message.Subject
+                    </div>
+
+                    <div class="row">
+                        Text: @message.Text
+                    </div>
+
+                    <div class="row">
+                        Priority: @message.Priority
+                    </div>
+
+                    <div class="row">
+                        Date Sent: @message.Date.ToShortDateString()
+                    </div>
+                </p>
+            </div>
+            <hr />
+        }
+    }
+</div>
