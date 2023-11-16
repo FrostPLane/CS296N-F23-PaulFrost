@@ -22,14 +22,14 @@ namespace Thurston_Board_Game_Club.Controllers
             Answers[4] = "Yes";
         }
 
-        public IActionResult Quiz()
+        public IActionResult Index()
         {
             var model = LoadQuestions(new QuizQuestions());
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Quiz(string answer1, string answer2, string answer3, string answer4)
+        public IActionResult Index(string answer1, string answer2, string answer3, string answer4)
         {
             var model = LoadQuestions(new QuizQuestions());
             model.InputAnswers[1] = answer1;

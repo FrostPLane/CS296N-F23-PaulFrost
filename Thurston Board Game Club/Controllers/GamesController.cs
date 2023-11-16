@@ -13,7 +13,7 @@ namespace Thurston_Board_Game_Club.Controllers
             _logger = logger;
         }
 
-        public IActionResult Games()
+        public IActionResult Index()
         {
             return View();
         }

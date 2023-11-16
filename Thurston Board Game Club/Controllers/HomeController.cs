@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Thurston_Board_Game_Club.Data;
@@ -16,6 +17,7 @@ namespace Thurston_Board_Game_Club.Controllers
             _context = c;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
