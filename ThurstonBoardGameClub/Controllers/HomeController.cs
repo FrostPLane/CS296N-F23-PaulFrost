@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Diagnostics;
 using ThurstonBoardGameClub.Data;
 using ThurstonBoardGameClub.Models;
@@ -12,10 +11,18 @@ namespace ThurstonBoardGameClub.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly AppDbContext _context;
-        public HomeController(AppDbContext c, ILogger<HomeController> logger)
+        public readonly IMessageRepository repo;
+
+        public HomeController(AppDbContext c, IMessageRepository r, ILogger<HomeController> logger)
         {
             _logger = logger;
             _context = c;
+            repo = r;
+        }
+
+        public HomeController(IMessageRepository r)
+        {
+            repo = r;
         }
 
         [AllowAnonymous]
@@ -35,12 +42,27 @@ namespace ThurstonBoardGameClub.Controllers
             return View(messages);
         }
 
-        public IActionResult Message()
+        /*        public IActionResult Message()
+                {
+                    return View();
+                }*/
+
+        public IActionResult Message(int messageId)
         {
-            return View();
+            Message message = repo.GetMessageById(messageId);
+            /*
+            // If the http request doesn't have a reviewId, then reviewId = 0.
+            var review = context.Reviews
+                .Include(review => review.Reviewer) // returns Reivew.AppUser object
+                .Include(review => review.Book) // returns Review.Book object
+                .Where(review => review.ReviewId == reviewId)
+                .SingleOrDefault();  // default is null
+            // If no review is found, a null is sent to the view.
+            */
+            return View(message);
         }
 
-        [HttpPost]
+/*        [HttpPost]
         public IActionResult Message(Message model)
         {
             model.Date = DateTime.Now;
@@ -50,6 +72,20 @@ namespace ThurstonBoardGameClub.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Message", new { model.MessageId });
+        }*/
+
+        [HttpPost]
+        public IActionResult Message(Message model)
+        {
+            if (repo.StoreMessage(model) > 0)
+            {
+                return RedirectToAction("Index", new { MessageId = model.MessageId });
+            }
+            else
+            {
+                return View();  // TODO: Send an error message to the view
+            }
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

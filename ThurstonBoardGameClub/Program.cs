@@ -5,6 +5,8 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddTransient<IMessageRepository, MessageRepository>();
+
 builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("SmarterASP.NET");
