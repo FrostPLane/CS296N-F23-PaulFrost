@@ -13,6 +13,8 @@ namespace ThurstonBoardGameClub.Controllers
         IMessageRepository repo = new FakeMessageRepository();
         HomeController controller;
 
+        // IMPORTANT NOTE: Overloaded Method in HomeController.cs must be uncommented for testing, must be re-commented for site loading as MVC does not allow overloading Controller Actions when run.
+
         public MessageControllerTests()
         {
             controller = new HomeController(repo);

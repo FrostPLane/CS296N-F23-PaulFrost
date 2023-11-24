@@ -20,10 +20,10 @@ namespace ThurstonBoardGameClub.Controllers
             repo = r;
         }
 
-        public HomeController(IMessageRepository r)
+/*        public HomeController(IMessageRepository r)
         {
             repo = r;
-        }
+        }*/
 
         [AllowAnonymous]
         public IActionResult Index()
