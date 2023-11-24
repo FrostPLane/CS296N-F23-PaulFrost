@@ -15,10 +15,11 @@ namespace ThurstonBoardGameClub.Controllers
 
         // IMPORTANT NOTE: Overloaded Method in HomeController.cs must be uncommented for testing, must be re-commented for site loading as MVC does not allow overloading Controller Actions when run.
 
-        public MessageControllerTests()
+        // Must be uncommented for testing, as well as above information.
+/*        public MessageControllerTests()
         {
             controller = new HomeController(repo);
-        }
+        }*/
 
         [Fact]
         public void Message_PostTest_Success()

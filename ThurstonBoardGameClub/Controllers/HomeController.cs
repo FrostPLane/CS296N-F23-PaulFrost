@@ -20,6 +20,8 @@ namespace ThurstonBoardGameClub.Controllers
             repo = r;
         }
 
+
+        // If uncommenting for testing, must all comment out the HttpPost and IActionResult Message() methods, and uncomment the methods below.
 /*        public HomeController(IMessageRepository r)
         {
             repo = r;
@@ -42,27 +44,12 @@ namespace ThurstonBoardGameClub.Controllers
             return View(messages);
         }
 
-        /*        public IActionResult Message()
-                {
-                    return View();
-                }*/
-
-        public IActionResult Message(int messageId)
+        public IActionResult Message()
         {
-            Message message = repo.GetMessageById(messageId);
-            /*
-            // If the http request doesn't have a reviewId, then reviewId = 0.
-            var review = context.Reviews
-                .Include(review => review.Reviewer) // returns Reivew.AppUser object
-                .Include(review => review.Book) // returns Review.Book object
-                .Where(review => review.ReviewId == reviewId)
-                .SingleOrDefault();  // default is null
-            // If no review is found, a null is sent to the view.
-            */
-            return View(message);
+            return View();
         }
 
-/*        [HttpPost]
+        [HttpPost]
         public IActionResult Message(Message model)
         {
             model.Date = DateTime.Now;
@@ -72,9 +59,9 @@ namespace ThurstonBoardGameClub.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Message", new { model.MessageId });
-        }*/
+        }
 
-        [HttpPost]
+/*        [HttpPost]
         public IActionResult Message(Message model)
         {
             if (repo.StoreMessage(model) > 0)
@@ -87,6 +74,21 @@ namespace ThurstonBoardGameClub.Controllers
             }
 
         }
+
+        public IActionResult Message(int messageId)
+        {
+            Message message = repo.GetMessageById(messageId);
+
+            // If the http request doesn't have a reviewId, then reviewId = 0.
+            var review = context.Reviews
+                .Include(review => review.Reviewer) // returns Reivew.AppUser object
+                .Include(review => review.Book) // returns Review.Book object
+                .Where(review => review.ReviewId == reviewId)
+                .SingleOrDefault();  // default is null
+                                     // If no review is found, a null is sent to the view.
+
+            return View(message);
+        }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
