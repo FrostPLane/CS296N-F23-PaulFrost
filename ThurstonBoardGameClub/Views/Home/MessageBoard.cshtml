@@ -8,6 +8,29 @@
     <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
 
+<h1 class="h1">Filter Messages</h1>
+
+<form method="get" class="container">
+    <div class="row p-2">
+        <label for="From" class="control-label">Sender Name</label>
+        <input name="From" class="form-control" />
+    </div>
+    <div class="row p-2">
+        <button type="submit" class="form-control ">Submit</button>
+    </div>
+</form>
+
+<form method="get" class="container">
+    <div class="row p-2">
+        <label for="Date" class="control-label">Message Date</label>
+        <input name="Date" type="date" class="form-control" />
+    </div>
+    <div class="row p-2">
+        <button type="submit" class="form-control">Submit</button>
+    </div>
+</form>
+
+
 <div class="text-center row">
     <a asp-controller="Home" asp-action="Message">Send A Message</a>
 </div>

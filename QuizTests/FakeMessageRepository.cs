@@ -1,6 +1,7 @@
 ﻿using ThurstonBoardGameClub.Data;
 using ThurstonBoardGameClub.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ThurstonBoardGameClub
 {
@@ -8,6 +9,7 @@ namespace ThurstonBoardGameClub
     {
         private List<Message> messages = new List<Message>();
 
+        IQueryable<Message> IMessageRepository.Messages => throw new System.NotImplementedException();
         public Message GetMessageById(int id)
         {
             Message message = messages.Find(m => m.MessageId == id);
@@ -27,5 +29,14 @@ namespace ThurstonBoardGameClub
             return status;
         }
 
+        Message IMessageRepository.GetMessageById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        int IMessageRepository.StoreMessage(Message model)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
