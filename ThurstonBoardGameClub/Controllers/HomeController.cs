@@ -44,17 +44,17 @@ namespace ThurstonBoardGameClub.Controllers
 
             if (userFrom != null)
             {
-                messages = repo.Messages.Where(m => m.From == userFrom).ToList<Message>();
+                messages = repo.Messages.Where(m => m.From == userFrom).ToList();
             }
             // date is not null
             else if (date != null)
             {
-                messages = repo.Messages.Where(m => m.Date == DateTime.Parse(date)).ToList<Message>();
+                messages = repo.Messages.Where(m => m.Date == DateTime.Parse(date)).ToList();
             }
             // Both query parameters are null
             else
             {
-                messages = repo.Messages.ToList<Message>();
+                messages = repo.Messages.ToList();
             }
 
             return View(messages);
