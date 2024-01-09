@@ -14,6 +14,14 @@ namespace ThurstonBoardGameClub.Data
             context = appDbContext;
         }
 
+        public IQueryable<Message> Messages
+        {
+            get
+            {
+                return context.Messages.Select(m => m);
+            }
+        }
+
         public Message GetMessageById(int id)
         {
             var message = context.Messages

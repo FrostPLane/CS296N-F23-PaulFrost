@@ -38,9 +38,25 @@ namespace ThurstonBoardGameClub.Controllers
             return View();
         }
 
-        public IActionResult MessageBoard()
+        public IActionResult MessageBoard(String userFrom, String date)
         {
-            List<Message> messages = _context.Messages.Select(m => m).ToList();
+            List<Message> messages;/* = _context.Messages.Select(m => m).ToList();*/
+
+            if (userFrom != null)
+            {
+                messages = repo.Messages.Where(m => m.From == userFrom).ToList();
+            }
+            // date is not null
+            else if (date != null)
+            {
+                messages = repo.Messages.Where(m => m.Date == DateTime.Parse(date)).ToList();
+            }
+            // Both query parameters are null
+            else
+            {
+                messages = repo.Messages.ToList();
+            }
+
             return View(messages);
         }
 
@@ -80,9 +96,9 @@ namespace ThurstonBoardGameClub.Controllers
             Message message = repo.GetMessageById(messageId);
 
             // If the http request doesn't have a reviewId, then reviewId = 0.
-            var review = context.Reviews
+            var review = context.Messages
                 .Include(review => review.Reviewer) // returns Reivew.AppUser object
-                .Include(review => review.Book) // returns Review.Book object
+                .Include(review => review.Book) // returns Message.Book object
                 .Where(review => review.ReviewId == reviewId)
                 .SingleOrDefault();  // default is null
                                      // If no review is found, a null is sent to the view.
