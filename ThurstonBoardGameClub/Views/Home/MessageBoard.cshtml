@@ -1,0 +1,73 @@
+﻿@model List<Message>
+
+@{
+    ViewData["Title"] = "Message Board";
+}
+
+<div class="text-center container">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<p>Filter Messages</p>
+
+<form method="get" class="container">
+    <div class="row p-2">
+        <label for="userFrom" class="control-label">Sender Name</label>
+        <input name="userFrom" class="form-control" />
+    </div>
+    <div class="row p-2">
+        <button type="submit" class="form-control">Submit</button>
+    </div>
+</form>
+
+<form method="get" class="container">
+    <div class="row p-2">
+        <label for="date" class="control-label">Message Date</label>
+        <input name="date" type="date" class="form-control" />
+    </div>
+    <div class="row p-2">
+        <button type="submit" class="form-control">Submit</button>
+    </div>
+</form>
+
+
+<div class="text-center row">
+    <a asp-controller="Home" asp-action="Message">Send A Message</a>
+</div>
+
+<div class="text-center container" name="messageBoard">
+    @foreach (var message in Model)
+    {
+        @if (message != null)
+        {
+            <div class="text-center container">
+                <p>
+                    <div class="row">
+                        From: @message.From
+                    </div>
+
+                    <div class="row">
+                        To: @message.To
+                    </div>
+
+                    <div class="row">
+                        Subject: @message.Subject
+                    </div>
+
+                    <div class="row">
+                        Text: @message.Text
+                    </div>
+
+                    <div class="row">
+                        Priority: @message.Priority
+                    </div>
+
+                    <div class="row">
+                        Date Sent: @message.Date.ToShortDateString()
+                    </div>
+                </p>
+            </div>
+            <hr />
+        }
+    }
+</div>
