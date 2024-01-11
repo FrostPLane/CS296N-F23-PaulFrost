@@ -77,34 +77,34 @@ namespace ThurstonBoardGameClub.Controllers
             return RedirectToAction("Message", new { model.MessageId });
         }
 
-/*        [HttpPost]
-        public IActionResult Message(Message model)
-        {
-            if (repo.StoreMessage(model) > 0)
-            {
-                return RedirectToAction("Index", new { MessageId = model.MessageId });
-            }
-            else
-            {
-                return View();  // TODO: Send an error message to the view
-            }
+        /*        [HttpPost]
+                public IActionResult Message(Message model)
+                {
+                    if (repo.StoreMessage(model) > 0)
+                    {
+                        return RedirectToAction("Index", new { MessageId = model.MessageId });
+                    }
+                    else
+                    {
+                        return View();  // TODO: Send an error message to the view
+                    }
 
-        }
+                }
 
-        public IActionResult Message(int messageId)
-        {
-            Message message = repo.GetMessageById(messageId);
+                public IActionResult Message(int messageId)
+                {
+                    Message message = repo.GetMessageById(messageId);
 
-            // If the http request doesn't have a reviewId, then reviewId = 0.
-            var review = context.Messages
-                .Include(review => review.Reviewer) // returns Reivew.AppUser object
-                .Include(review => review.Book) // returns Message.Book object
-                .Where(review => review.ReviewId == reviewId)
-                .SingleOrDefault();  // default is null
-                                     // If no review is found, a null is sent to the view.
+                    // If the http request doesn't have a reviewId, then reviewId = 0.
+                    var review = context.Messages
+                        .Include(review => review.Reviewer) // returns Reivew.AppUser object
+                        .Include(review => review.Book) // returns Message.Book object
+                        .Where(review => review.ReviewId == reviewId)
+                        .SingleOrDefault();  // default is null
+                                             // If no review is found, a null is sent to the view.
 
-            return View(message);
-        }*/
+                    return View(message);
+                }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
