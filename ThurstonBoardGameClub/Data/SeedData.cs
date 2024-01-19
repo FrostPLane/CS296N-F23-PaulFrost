@@ -9,7 +9,7 @@ namespace ThurstonBoardGameClub.Data
     {
         public static void Seed(AppDbContext context, IServiceProvider provider)
         {
-            if (!context.Messages.Any())  // this is to prevent duplicate data from being added
+            if (!context.Users.Any())
             {
                 const string SECRET_PASSWORD = "Secret!123";
                 var userManager = provider.GetRequiredService<UserManager<AppUser>>();
@@ -19,6 +19,9 @@ namespace ThurstonBoardGameClub.Data
                 result = userManager.CreateAsync(testUser, SECRET_PASSWORD);
                 AppUser testUserTwo = new AppUser { UserName = "Second Tester" };
                 result = userManager.CreateAsync(testUserTwo, SECRET_PASSWORD);
+            }
+            if (!context.Messages.Any())  // this is to prevent duplicate data from being added
+            {
 
                 Message message = new Message
                 {
