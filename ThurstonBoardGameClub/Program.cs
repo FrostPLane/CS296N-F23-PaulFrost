@@ -20,8 +20,9 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    SeedData.Seed(dbContext);
+    var context = scope.ServiceProvider
+      .GetRequiredService<AppDbContext>();
+    SeedData.Seed(context, scope.ServiceProvider);
 }
 
 
