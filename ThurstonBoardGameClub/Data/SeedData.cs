@@ -22,11 +22,10 @@ namespace ThurstonBoardGameClub.Data
             }
             if (!context.Messages.Any())  // this is to prevent duplicate data from being added
             {
-
                 Message message = new Message
                 {
                     MessageId = 1,
-                    From = "First From",
+                    From = "First Name",
                     To = "First To",
                     Subject = "First Subject",
                     Text = "First Text",
@@ -38,7 +37,7 @@ namespace ThurstonBoardGameClub.Data
                 message = new Message
                 {
                     MessageId = 2,
-                    From = "Second From",
+                    From = "Second Name",
                     To = "Second To",
                     Subject = "Second Subject",
                     Text = "Second Text",
@@ -47,15 +46,10 @@ namespace ThurstonBoardGameClub.Data
                 };
                 context.Messages.Add(message);
 
-/*                AppUser senderFirstUser = new AppUser() { Name = "First User" };
-                context.AppUsers.Add(senderFirstUser);
-                context.SaveChanges();*/  
-                // This will add a UserID to the reviewer object
-
                 message = new Message
                 {
                     MessageId = 3,
-                    From = "Third From",
+                    From = "Third Name",
                     To = "Third To",
                     Subject = "Third Subject",
                     Text = "Third Text",
@@ -67,7 +61,7 @@ namespace ThurstonBoardGameClub.Data
                 message = new Message
                 {
                     MessageId = 4,
-                    From = "Third From",
+                    From = "Fourth Name",
                     To = "Fourth To",
                     Subject = "Fourth Subject",
                     Text = "Fourth Text",

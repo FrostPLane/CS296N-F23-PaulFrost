@@ -11,8 +11,8 @@ using ThurstonBoardGameClub.Data;
 namespace ThurstonBoardGameClub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240119031705_Identity")]
-    partial class Identity
+    [Migration("20240120001826_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,6 @@ namespace ThurstonBoardGameClub.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("NormalizedEmail")
@@ -72,7 +71,6 @@ namespace ThurstonBoardGameClub.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("TwoFactorEnabled")
