@@ -4,12 +4,11 @@
 }
 
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<AppUser> signInManager
 
 <div class="container">
     <form asp-action="Message" asp-controller="Home">
         <div class="col p-3">
-            @if (signInManager.IsSignedIn(User))
+            @if (User.Identity.IsAuthenticated)
             {
                 <div class="row">
                     <div class="mb-1">

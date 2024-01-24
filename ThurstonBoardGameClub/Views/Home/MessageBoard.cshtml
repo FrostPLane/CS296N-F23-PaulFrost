@@ -4,6 +4,8 @@
     ViewData["Title"] = "Message Board";
 }
 
+@using Microsoft.AspNetCore.Identity
+
 <div class="text-center container">
     <h1 class="display-4">@ViewData["Title"]</h1>
 </div>
@@ -30,10 +32,12 @@
     </div>
 </form>
 
-
-<div class="text-center row">
-    <a asp-controller="Home" asp-action="Message">Send A Message</a>
-</div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="text-center row">
+        <a asp-controller="Home" asp-action="Message">Send A Message</a>
+    </div>
+}
 
 <div class="text-center container" name="messageBoard">
     @foreach (var message in Model)

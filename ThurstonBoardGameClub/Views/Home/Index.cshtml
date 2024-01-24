@@ -7,6 +7,8 @@
     <p>Come play and make some friends.</p>
 </div>
 
+@using Microsoft.AspNetCore.Identity
+
 <div class="container">
     <div class="col">
         <div class="row">
@@ -16,9 +18,11 @@
         <div class="row">
             <a asp-controller="Account" asp-action="Register">Register An Account</a>
         </div>
-
+        @if (User.Identity.IsAuthenticated)
+        {
         <div class="row">
             <a asp-controller="Home" asp-action="MessageBoard">View The Message Board</a>
         </div>
+        }
     </div>
 </div>
