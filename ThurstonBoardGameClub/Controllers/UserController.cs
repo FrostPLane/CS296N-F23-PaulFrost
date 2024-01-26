@@ -97,6 +97,12 @@ namespace ThurstonBoardGameClub.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add(RegisterVM model)
         {
