@@ -96,5 +96,28 @@ namespace ThurstonBoardGameClub.Controllers
             await roleManager.CreateAsync(new IdentityRole("Admin"));
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(RegisterVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new AppUser { UserName = model.Username };
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View(model);
+        }
     }
 }
