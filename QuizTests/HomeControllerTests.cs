@@ -5,21 +5,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using Xunit;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace ThurstonBoardGameClub.Controllers
 {
     public class MessageControllerTests
     {
         IMessageRepository repo = new FakeMessageRepository();
+        private readonly ILogger<HomeController> logger;
+        private readonly UserManager<AppUser> userm;
+
         HomeController controller;
 
-        // IMPORTANT NOTE: Overloaded Method in HomeController.cs must be uncommented for testing, must be re-commented for site loading as MVC does not allow overloading Controller Actions when run.
-
-        // Must be uncommented for testing, as well as above information.
-/*        public MessageControllerTests()
+        public MessageControllerTests()
         {
-            controller = new HomeController(repo);
-        }*/
+            controller = new HomeController(repo, logger, userm);
+        }
 
         [Fact]
         public void Message_PostTest_Success()
