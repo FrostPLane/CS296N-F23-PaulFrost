@@ -21,14 +21,19 @@
         {
             @foreach (AppUser user in Model.Users)
             {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>
-                        @foreach (string roleName in user.RoleNames)
-                        {
-                            <div>@roleName</div>
-                        }
-                    </td>
+                if (user.UserName == "admin")
+                {
+                }
+                else
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>
+                            @foreach (string roleName in user.RoleNames)
+                            {
+                                <div>@roleName</div>
+                            }
+                        </td>
                     <td>
                         <form method="post" asp-action="Delete" asp-route-id="@user.Id">
                             <button type="submit" class="btn btn-primary"> Delete User</button>
@@ -45,6 +50,7 @@
                         </form>
                     </td>
                 </tr>
+                }
             }
         }
     </tbody>
