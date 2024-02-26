@@ -6,6 +6,6 @@ namespace ThurstonBoardGameClub.Data
     {
         IQueryable<Message> Messages { get; }
         public Message GetMessageById(int id);
-        public int StoreMessage(Message model);
+        public Task<int> StoreMessageAsync(Message model);
     }
 }

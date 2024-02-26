@@ -32,11 +32,11 @@ namespace ThurstonBoardGameClub.Data
             return message;
         }
 
-        public int StoreMessage(Message model)
+        public async Task<int> StoreMessageAsync(Message model)
         {
             model.Date = DateTime.Now;
             context.Messages.Add(model);
-            return context.SaveChanges();
+            return await context.SaveChangesAsync();
             // returns a positive value if succussful
         }
     }

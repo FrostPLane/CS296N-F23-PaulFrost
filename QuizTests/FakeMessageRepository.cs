@@ -17,7 +17,7 @@ namespace ThurstonBoardGameClub
             return message;
         }
 
-        public int StoreMessage(Message model)
+        public int StoreMessageAsync(Message model)
         {
             int status = 0;
             if (model != null)
@@ -34,7 +34,7 @@ namespace ThurstonBoardGameClub
             throw new System.NotImplementedException();
         }
 
-        int IMessageRepository.StoreMessage(Message model)
+        Task<int> IMessageRepository.StoreMessageAsync(Message model)
         {
             throw new System.NotImplementedException();
         }

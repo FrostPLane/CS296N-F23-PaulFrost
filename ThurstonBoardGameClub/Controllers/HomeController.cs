@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -10,18 +11,18 @@ namespace ThurstonBoardGameClub.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly AppDbContext _context;
         public readonly IMessageRepository repo;
+        private readonly UserManager<AppUser> userm;
 
-        public HomeController(AppDbContext c, IMessageRepository r, ILogger<HomeController> logger)
+        public HomeController(IMessageRepository r, ILogger<HomeController> logger, UserManager<AppUser> um)
         {
             _logger = logger;
-            _context = c;
             repo = r;
+            userm = um;
         }
 
 
-        // If uncommenting for testing, must all comment out the HttpPost and IActionResult Message() methods, and uncomment the methods below.
+        // ONLY UNCOMMENT FOR TESTING, READ BELOW FOR TESTING METHODS
 /*        public HomeController(IMessageRepository r)
         {
             repo = r;
@@ -38,7 +39,7 @@ namespace ThurstonBoardGameClub.Controllers
             return View();
         }
 
-        public IActionResult MessageBoard(String userFrom, String date)
+        public IActionResult MessageBoard(string userFrom, String date)
         {
             List<Message> messages;/* = _context.Messages.Select(m => m).ToList();*/
 
@@ -56,27 +57,27 @@ namespace ThurstonBoardGameClub.Controllers
             {
                 messages = repo.Messages.ToList();
             }
-
             return View(messages);
         }
 
+        // COMMENT OUT IF TESTING
         public IActionResult Message()
         {
             return View();
         }
 
+        // COMMENT OUT IF TESTING
         [HttpPost]
-        public IActionResult Message(Message model)
+        public async Task<IActionResult> Message(Message model)
         {
-            model.Date = DateTime.Now;
-
-            // Save model to db
-            _context.Messages.Add(model);
-            _context.SaveChanges();
+            AppUser user = await userm.FindByNameAsync(User.Identity.Name);
+            model.From = user.UserName;
+            await repo.StoreMessageAsync(model);
 
             return RedirectToAction("Message", new { model.MessageId });
         }
 
+        // USED FOR TESTING ONLY
         /*        [HttpPost]
                 public IActionResult Message(Message model)
                 {
