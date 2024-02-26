@@ -1,21 +1,24 @@
 ﻿using ThurstonBoardGameClub.Models;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 namespace ThurstonBoardGameClub.Data
 {
     public class SeedData
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(AppDbContext context, IServiceProvider provider)
         {
             if (!context.Messages.Any())  // this is to prevent duplicate data from being added
             {
-/*                AppUser user = new AppUser
-                {
-                    Name = "Test Name"
-                };
-                context.AppUsers.Add(user);
-                context.SaveChanges();*/
+                const string SECRET_PASSWORD = "Secret!123";
+                var userManager = provider.GetRequiredService<UserManager<AppUser>>();
+                AppUser paulFrost = new AppUser { UserName = "Paul Frost" };
+                var result = userManager.CreateAsync(paulFrost, SECRET_PASSWORD);
+                AppUser testUser = new AppUser { UserName = "Test User" };
+                result = userManager.CreateAsync(testUser, SECRET_PASSWORD);
+                AppUser testUserTwo = new AppUser { UserName = "Second Tester" };
+                result = userManager.CreateAsync(testUserTwo, SECRET_PASSWORD);
 
                 Message message = new Message
                 {

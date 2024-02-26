@@ -1,6 +1,8 @@
 using ThurstonBoardGameClub.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Identity;
+using ThurstonBoardGameClub.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -12,12 +14,15 @@ var connectionString = builder.Configuration.GetConnectionString("SmarterASP.NET
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+builder.Services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    SeedData.Seed(dbContext);
+    var context = scope.ServiceProvider
+      .GetRequiredService<AppDbContext>();
+    SeedData.Seed(context, scope.ServiceProvider);
 }
 
 
@@ -35,6 +40,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
