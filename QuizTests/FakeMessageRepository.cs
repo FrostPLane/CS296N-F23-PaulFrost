@@ -2,6 +2,7 @@
 using ThurstonBoardGameClub.Models;
 using System.Collections.Generic;
 using System.Linq;
+using TestDoubles;
 
 namespace ThurstonBoardGameClub
 {
@@ -15,6 +16,13 @@ namespace ThurstonBoardGameClub
             Message message = messages.Find(m => m.MessageId == id);
 
             return message;
+        }
+        public IQueryable<Message> Messages
+        {
+            get
+            {
+                return new InMemoryAsyncQueryable<Message>(Messages);
+            }
         }
 
         public int StoreMessageAsync(Message model)

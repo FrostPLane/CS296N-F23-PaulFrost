@@ -10,9 +10,9 @@ namespace ThurstonBoardGameClub.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        public readonly IMessageRepository repo;
-        private readonly UserManager<AppUser> userm;
+        ILogger<HomeController> _logger;
+        IMessageRepository repo;
+        UserManager<AppUser> userm;
 
         public HomeController(IMessageRepository r, ILogger<HomeController> logger, UserManager<AppUser> um)
         {
@@ -21,52 +21,61 @@ namespace ThurstonBoardGameClub.Controllers
             userm = um;
         }
 
-
-        // ONLY UNCOMMENT FOR TESTING, READ BELOW FOR TESTING METHODS
-/*        public HomeController(IMessageRepository r)
-        {
-            repo = r;
-        }*/
-
         [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        public async Task<IActionResult> MessageBoard(String messageFrom, String messageDate)
+        {
+            List<Message> messages;
+
+            // filter by message from
+            if (messageFrom != null)
+            {
+                messages = await FromQuery(messageFrom).ToListAsync<Message>();
+            }
+            else if (messageDate != null)
+            {
+                messages = await DateQuery(messageDate).ToListAsync<Message>();
+            }
+            // All query parameters are null
+            else
+            {
+                messages = await repo.Messages.ToListAsync<Message>();
+            }
+
+            return View(messages);
+        }
+
+        private IQueryable<Message> FromQuery(string messageName)
+        {
+            return repo.Messages
+                .Where(r => r.From == messageName)
+                .Select(r => r);
+        }
+
+        private IQueryable<Message> DateQuery(string messageDate)
+        {
+            return repo.Messages
+                   .Where(r => r.Date == DateTime.Parse(messageDate).Date)
+                   .Select(r => r);
+        }
+
+
         public IActionResult History()
         {
             return View();
         }
 
-        public IActionResult MessageBoard(string userFrom, String date)
-        {
-            List<Message> messages;/* = _context.Messages.Select(m => m).ToList();*/
-
-            if (userFrom != null)
-            {
-                messages = repo.Messages.Where(m => m.From == userFrom).ToList();
-            }
-            // date is not null
-            else if (date != null)
-            {
-                messages = repo.Messages.Where(m => m.Date == DateTime.Parse(date)).ToList();
-            }
-            // Both query parameters are null
-            else
-            {
-                messages = repo.Messages.ToList();
-            }
-            return View(messages);
-        }
-
-        // COMMENT OUT IF TESTING
+        [Authorize]
         public IActionResult Message()
         {
             return View();
         }
 
-        // COMMENT OUT IF TESTING
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Message(Message model)
         {
@@ -76,36 +85,6 @@ namespace ThurstonBoardGameClub.Controllers
 
             return RedirectToAction("Message", new { model.MessageId });
         }
-
-        // USED FOR TESTING ONLY
-        /*        [HttpPost]
-                public IActionResult Message(Message model)
-                {
-                    if (repo.StoreMessage(model) > 0)
-                    {
-                        return RedirectToAction("Index", new { MessageId = model.MessageId });
-                    }
-                    else
-                    {
-                        return View();  // TODO: Send an error message to the view
-                    }
-
-                }
-
-                public IActionResult Message(int messageId)
-                {
-                    Message message = repo.GetMessageById(messageId);
-
-                    // If the http request doesn't have a reviewId, then reviewId = 0.
-                    var review = context.Messages
-                        .Include(review => review.Reviewer) // returns Reivew.AppUser object
-                        .Include(review => review.Book) // returns Message.Book object
-                        .Where(review => review.ReviewId == reviewId)
-                        .SingleOrDefault();  // default is null
-                                             // If no review is found, a null is sent to the view.
-
-                    return View(message);
-                }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
