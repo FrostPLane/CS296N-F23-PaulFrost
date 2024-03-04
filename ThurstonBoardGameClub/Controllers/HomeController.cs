@@ -91,5 +91,29 @@ namespace ThurstonBoardGameClub.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Reply(Reply model)
+        {
+            if (userm != null) // Don't get a user when doing unit tests
+            {
+                // Get the sender
+                AppUser user = await userm.FindByNameAsync(User.Identity.Name);
+                model.From = user.UserName;
+            }
+            // Get the message being replied to
+            Message originalMessage = await repo.GetMessageByIdAsync(model.MessageId);
+            // Get the recipient
+            model.To = originalMessage.From;
+            // Save the message
+            await repo.StoreMessageAsync(model);
+            // Add the reply to the original message
+            originalMessage.Replies.Add(model);
+            repo.StoreMessageAsync(originalMessage);
+            //TODO: Do something interesting/useful with the MessageId or don't send it. It's not currently used.
+            return RedirectToAction("Index", new { model.MessageId });
+        }
     }
 }

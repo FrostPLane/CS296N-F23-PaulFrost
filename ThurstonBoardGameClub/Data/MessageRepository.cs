@@ -22,14 +22,15 @@ namespace ThurstonBoardGameClub.Data
             }
         }
 
-        public Message GetMessageById(int id)
+        public async Task<Message> GetMessageByIdAsync(int id)
         {
-            var message = context.Messages
+/*            var message = context.Messages
               .Include(message => message.From)
               .Include(message => message.Text)
               .Where(message => message.MessageId == id)
-              .SingleOrDefault();
-            return message;
+              .SingleOrDefault();*/
+            // return message
+            return await context.Messages.FindAsync(id);
         }
 
         public async Task<int> StoreMessageAsync(Message model)

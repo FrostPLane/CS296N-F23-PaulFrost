@@ -70,6 +70,22 @@
                         Date Sent: @message.Date.ToShortDateString()
                     </div>
                 </p>
+
+                <p>
+                    <a class="btn btn-primary" data-toggle="collapse" href="#ReplyCollapse" role="button" aria-expanded="false" aria-controls="ReplyCollapse">
+                        Replies
+                    </a>
+                </p>
+                <div class="collapse" id="ReplyCollapse">
+                    <div class="card card-body">
+                        @foreach (var reply in Model)
+                        {
+                            
+                        }
+                    </div>
+                </div>
+
+
             </div>
             <hr />
         }
