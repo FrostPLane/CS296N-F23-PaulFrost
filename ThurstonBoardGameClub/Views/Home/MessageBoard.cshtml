@@ -70,20 +70,34 @@
                         Date Sent: @message.Date.ToShortDateString()
                     </div>
                 </p>
+                <a asp-action="Reply" asp-route-messageId="@message.MessageId" class="btn-sm btn-secondary col-3 m-3">Reply</a>
 
-                <p>
-                    <a class="btn btn-primary" data-toggle="collapse" href="#ReplyCollapse" role="button" aria-expanded="false" aria-controls="ReplyCollapse">
-                        Replies
-                    </a>
-                </p>
-                <div class="collapse" id="ReplyCollapse">
-                    <div class="card card-body">
-                        @foreach (var reply in Model)
-                        {
-                            
-                        }
-                    </div>
-                </div>
+                @if (message.Replies.Count != 0)
+                {
+                    <p>
+                        <a class="btn btn-link" data-toggle="collapse" href="#ReplyCollapse" role="button" aria-expanded="false" aria-controls="ReplyCollapse">
+                            View Replies
+                        </a>
+                    </p>
+                    <h5 class="m-3">Reply@(message.Replies.Count > 1 ? "s" : "")</h5>
+
+                    @foreach (Reply reply in message.Replies)
+                    {
+                        <p>
+                            <p class="m-3">@reply.ReplyText</p>
+                            <strong class="m-3">By:</strong>
+                                @reply.From.Name
+                            <br />
+                            <strong class="m-3">Date:</strong>
+                                @reply.ReplyDate.Date.ToString("dddd, MMMM dd, yyyy")
+                            <br />
+                        </p>
+                    }
+                }
+                else
+                {
+                    
+                }
 
 
             </div>

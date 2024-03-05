@@ -13,6 +13,7 @@ namespace ThurstonBoardGameClub.Controllers
         ILogger<HomeController> _logger;
         IMessageRepository repo;
         UserManager<AppUser> userm;
+        IReplyRepository rerepo;
 
         public HomeController(IMessageRepository r, ILogger<HomeController> logger, UserManager<AppUser> um)
         {
@@ -76,44 +77,51 @@ namespace ThurstonBoardGameClub.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Message(Message model)
+        public IActionResult Reply(int messageId)
         {
-            AppUser user = await userm.FindByNameAsync(User.Identity.Name);
-            model.From = user.UserName;
-            await repo.StoreMessageAsync(model);
-
-            return RedirectToAction("Message", new { model.MessageId });
+            var replyVM = new ReplyVM { MessageId = messageId };
+            return View(replyVM);
         }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
 
         [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Reply(Reply model)
+        public async Task<RedirectToActionResult> Reply(ReplyVM replyVM)
         {
-            if (userm != null) // Don't get a user when doing unit tests
-            {
-                // Get the sender
-                AppUser user = await userm.FindByNameAsync(User.Identity.Name);
-                model.From = user.UserName;
-            }
-            // Get the message being replied to
-            Message originalMessage = await repo.GetMessageByIdAsync(model.MessageId);
-            // Get the recipient
-            model.To = originalMessage.From;
-            // Save the message
-            await repo.StoreMessageAsync(model);
-            // Add the reply to the original message
-            originalMessage.Replies.Add(model);
-            repo.StoreMessageAsync(originalMessage);
-            //TODO: Do something interesting/useful with the MessageId or don't send it. It's not currently used.
-            return RedirectToAction("Index", new { model.MessageId });
+            // Reply is the domain model
+            var reply = new Reply { ReplyText = replyVM.ReplyText };
+            reply.From = userm.GetUserAsync(User).Result;
+            reply.ReplyDate = DateTime.Now;
+
+            // Retrieve the message that this reply is for
+            var message = (from r in repo.Messages.Include(r => r.Replies)
+                           where r.MessageId == replyVM.MessageId
+                           select r).First<Message>();
+
+            reply.MessageId = message.MessageId;
+            // Store the message with the reply in the database
+            message.Replies.Add(reply);
+            await rerepo.StoreReplyAsync(reply);
+
+            return RedirectToAction("FromQuery", new { messageName = message.From });
         }
+
+        /*        [HttpPost]
+                public async Task<RedirectToActionResult> Reply(ReplyVM replyVM)
+                {
+                    // Reply is the domain model
+                    var reply = new Reply { ReplyText = replyVM.ReplyText };
+                    reply.From = userm.GetUserAsync(User).Result;
+                    reply.ReplyDate = DateTime.Now;
+
+                    // Retrieve the message that this reply is for
+                    var message = (from r in repo.Messages.Include(r => r.Replies)
+                                  where r.MessageId == replyVM.MessageId
+                                  select r).First<Message>();
+
+                    // Store the message with the reply in the database
+                    message.Replies.Add(reply);
+                    await repo.StoreMessageAsync(message);
+
+                    return RedirectToAction("FromQuery", new { messageName = message.From });
+                }*/
     }
 }

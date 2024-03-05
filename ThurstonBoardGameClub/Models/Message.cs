@@ -12,6 +12,5 @@
 
         // if there are replies this property will reference them
         public List<Reply> Replies { get; set; } = new List<Reply>();
-        public int? idOriginalMessage { get; set; } = null;
     }
 }

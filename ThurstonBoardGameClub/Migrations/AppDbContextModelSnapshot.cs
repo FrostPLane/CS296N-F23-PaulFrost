@@ -226,10 +226,6 @@ namespace ThurstonBoardGameClub.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("From")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -249,31 +245,37 @@ namespace ThurstonBoardGameClub.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("idOriginalMessage")
-                        .HasColumnType("int");
-
                     b.HasKey("MessageId");
 
                     b.ToTable("Messages");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Message");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("ThurstonBoardGameClub.Models.Reply", b =>
                 {
-                    b.HasBaseType("ThurstonBoardGameClub.Models.Message");
-
-                    b.Property<int?>("MessageId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("ReplyId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.HasIndex("MessageId1");
+                    b.Property<string>("FromId")
+                        .HasColumnType("varchar(255)");
 
-                    b.HasDiscriminator().HasValue("Reply");
+                    b.Property<int>("MessageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReplyDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ReplyText")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ReplyId");
+
+                    b.HasIndex("FromId");
+
+                    b.HasIndex("MessageId");
+
+                    b.ToTable("Replies");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -329,9 +331,17 @@ namespace ThurstonBoardGameClub.Migrations
 
             modelBuilder.Entity("ThurstonBoardGameClub.Models.Reply", b =>
                 {
+                    b.HasOne("AppUser", "From")
+                        .WithMany()
+                        .HasForeignKey("FromId");
+
                     b.HasOne("ThurstonBoardGameClub.Models.Message", null)
                         .WithMany("Replies")
-                        .HasForeignKey("MessageId1");
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("From");
                 });
 
             modelBuilder.Entity("ThurstonBoardGameClub.Models.Message", b =>
