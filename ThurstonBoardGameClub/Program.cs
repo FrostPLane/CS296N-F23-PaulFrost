@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity;
 using ThurstonBoardGameClub.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IMessageRepository, MessageRepository>();
+builder.Services.AddTransient<IReplyRepository, ReplyRepository>();
 
 builder.Services.AddControllersWithViews();
 

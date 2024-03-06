@@ -70,7 +70,7 @@
                         Date Sent: @message.Date.ToShortDateString()
                     </div>
                 </p>
-                <a asp-action="Reply" asp-route-messageId="@message.MessageId" class="btn-sm btn-secondary col-3 m-3">Reply</a>
+                <a asp-action="Reply" asp-route-messageId="@message.MessageId" class="btn-sm link col-3 m-3">Reply</a>
 
                 @if (message.Replies.Count != 0)
                 {
@@ -87,7 +87,6 @@
                             <p class="m-3">@reply.ReplyText</p>
                             <strong class="m-3">By:</strong>
                                 @reply.From.Name
-                            <br />
                             <strong class="m-3">Date:</strong>
                                 @reply.ReplyDate.Date.ToString("dddd, MMMM dd, yyyy")
                             <br />

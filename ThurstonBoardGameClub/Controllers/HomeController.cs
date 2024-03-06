@@ -15,11 +15,12 @@ namespace ThurstonBoardGameClub.Controllers
         UserManager<AppUser> userm;
         IReplyRepository rerepo;
 
-        public HomeController(IMessageRepository r, ILogger<HomeController> logger, UserManager<AppUser> um)
+        public HomeController(IMessageRepository r, IReplyRepository ir, ILogger<HomeController> logger, UserManager<AppUser> um)
         {
             _logger = logger;
             repo = r;
             userm = um;
+            rerepo = ir;
         }
 
         [AllowAnonymous]
@@ -44,7 +45,7 @@ namespace ThurstonBoardGameClub.Controllers
             // All query parameters are null
             else
             {
-                messages = await repo.Messages.ToListAsync<Message>();
+                messages = await repo.Messages.Include(m => m.Replies).ThenInclude(r => r.From).ToListAsync();
             }
 
             return View(messages);
@@ -76,6 +77,13 @@ namespace ThurstonBoardGameClub.Controllers
             return View();
         }
 
+/*        public IActionResult DeleteMessage(int messageId)
+        {
+            // TODO: Do something like redirect if the delete fails
+            repo.DeleteMessage(messageId);
+            return RedirectToAction("Index");
+        }*/
+
         [Authorize]
         public IActionResult Reply(int messageId)
         {
@@ -91,37 +99,11 @@ namespace ThurstonBoardGameClub.Controllers
             reply.From = userm.GetUserAsync(User).Result;
             reply.ReplyDate = DateTime.Now;
 
-            // Retrieve the message that this reply is for
-            var message = (from r in repo.Messages.Include(r => r.Replies)
-                           where r.MessageId == replyVM.MessageId
-                           select r).First<Message>();
+            reply.MessageId = replyVM.MessageId;
 
-            reply.MessageId = message.MessageId;
-            // Store the message with the reply in the database
-            message.Replies.Add(reply);
             await rerepo.StoreReplyAsync(reply);
 
-            return RedirectToAction("FromQuery", new { messageName = message.From });
+            return RedirectToAction("MessageBoard", "Home");
         }
-
-        /*        [HttpPost]
-                public async Task<RedirectToActionResult> Reply(ReplyVM replyVM)
-                {
-                    // Reply is the domain model
-                    var reply = new Reply { ReplyText = replyVM.ReplyText };
-                    reply.From = userm.GetUserAsync(User).Result;
-                    reply.ReplyDate = DateTime.Now;
-
-                    // Retrieve the message that this reply is for
-                    var message = (from r in repo.Messages.Include(r => r.Replies)
-                                  where r.MessageId == replyVM.MessageId
-                                  select r).First<Message>();
-
-                    // Store the message with the reply in the database
-                    message.Replies.Add(reply);
-                    await repo.StoreMessageAsync(message);
-
-                    return RedirectToAction("FromQuery", new { messageName = message.From });
-                }*/
     }
 }

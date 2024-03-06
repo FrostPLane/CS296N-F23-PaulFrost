@@ -11,6 +11,6 @@
         public DateTime Date { get; set; }
 
         // if there are replies this property will reference them
-        public List<Reply> Replies { get; set; } = new List<Reply>();
+        public ICollection<Reply> Replies { get; set; }
     }
 }
