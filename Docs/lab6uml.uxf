@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>380</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetroleclaims_
+--
+id: INT
+RoleId: VARCHAR(255)
+ClaimType: STRING
+ClaimValue: STRING</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>380</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetusertokens_
+--
+RoleId: VARCHAR(255)
+LoginProvider: VARCHAR(255)
+Name: VARCHAR(255)
+Value: STRING</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>500</x>
+      <y>30</y>
+      <w>210</w>
+      <h>310</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetusers_
+--
+Id: VARCHAR(255)
+Name: STRING
+Title: STRING
+UserName: VARCHAR(256)
+NormalizedUserName: VARCHAR(256)
+Email: VARCHAR(256)
+NormalizedEmail: VARCHAR(256)
+EmailConfirmed: TINYINT(1)
+PasswordHash: STRING
+SecurityStamp: STRING
+ConcurrencyStamp: STRING
+PhoneNumber: STRING
+PhoneNumberConfirmed: INT(1)
+TwoFactorEnabled: INT(1)
+LockoutEnd: DATETIME(6)
+LockoutEnabled: INT(1)
+AccessFailedCount: INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>1030</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: messages_
+--
+MessageId: INT
+To: STRING
+From: STRING
+Subject: STRING
+Text: STRING
+Priority: INT
+Date: DATETIME</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>380</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetroles_
+--
+Id VARCHAR(255)
+Name VARCHAR(256)
+NormalizedName VARCHAR(256)
+ConcurencyStamp STRING</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>770</x>
+      <y>190</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetuserclaims_
+--
+Id INT
+UserId VARCHAR(255)
+ClaimType STRING
+CLaimValue STRING</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>1260</y>
+      <w>210</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>_object: replies_
+--
+ReplyId INT
+ReplyText STRING
+ReplyDate DATETIME(6)
+FromId VARCHAR(255)
+MessageId INT</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>0</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetuserlogins_
+--
+LoginProvider VARCHAR(255)
+ProviderKey VARCHAR(255)
+ProviderDisplayName STRING
+UserId VARCHAR(255)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>190</y>
+      <w>210</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>_object: aspnetuserroles_
+--
+UserId VARCHAR(255)
+RoleId VARCHAR(255)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>850</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>_object: appuser_
+--
+Name: STRING
+Title: STRING</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>1170</y>
+      <w>50</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>910</y>
+      <w>50</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..
+m1=1..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+</diagram>

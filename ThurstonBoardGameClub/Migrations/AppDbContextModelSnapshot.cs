@@ -335,13 +335,15 @@ namespace ThurstonBoardGameClub.Migrations
                         .WithMany()
                         .HasForeignKey("FromId");
 
-                    b.HasOne("ThurstonBoardGameClub.Models.Message", null)
+                    b.HasOne("ThurstonBoardGameClub.Models.Message", "Message")
                         .WithMany("Replies")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("From");
+
+                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("ThurstonBoardGameClub.Models.Message", b =>

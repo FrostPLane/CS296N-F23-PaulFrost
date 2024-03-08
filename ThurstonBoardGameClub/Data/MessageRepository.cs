@@ -40,5 +40,19 @@ namespace ThurstonBoardGameClub.Data
             return await context.SaveChangesAsync();
             // returns a positive value if succussful
         }
+
+        public int UpdateMessage(Message message)
+        {
+            context.Update(message);
+            // Returns the number of updated saved
+            return context.SaveChanges();
+        }
+
+        public async Task<int> DeleteMessageAsync(int messageId)
+        {
+            Message message = GetMessageByIdAsync(messageId).Result;
+            context.Messages.Remove(message);
+            return await context.SaveChangesAsync();
+        }
     }
 }

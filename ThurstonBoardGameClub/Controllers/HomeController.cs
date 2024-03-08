@@ -80,8 +80,8 @@ namespace ThurstonBoardGameClub.Controllers
 /*        public IActionResult DeleteMessage(int messageId)
         {
             // TODO: Do something like redirect if the delete fails
-            repo.DeleteMessage(messageId);
-            return RedirectToAction("Index");
+            repo.DeleteMessageAsync(messageId);
+            return RedirectToAction("MessageBoard", "Home");
         }*/
 
         [Authorize]
