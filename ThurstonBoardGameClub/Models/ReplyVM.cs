@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ThurstonBoardGameClub.Models
 {
@@ -6,6 +7,8 @@ namespace ThurstonBoardGameClub.Models
     {
         public int MessageId { get; set; }    // This identifies the message being replied to
         public string From { get; set; }
+
+        /*[Required(ErrorMessage = "You must provide a reply body.")]*/
         public String ReplyText { get; set; }
     }
 }

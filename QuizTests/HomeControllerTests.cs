@@ -18,7 +18,7 @@ namespace ThurstonBoardGameClub.Controllers
         
         public MessageControllerTests()
         {
-            controller = new HomeController(repo, null, null);
+            controller = new HomeController(repo, null, null, null);
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace ThurstonBoardGameClub.Controllers
             // Done in the constructor
 
             // act
-            var result = controller.Message(new Message());
+            var result = controller.Message();
 
             // assert
             // Check to see if I got a RedirectToActionResult
@@ -42,7 +42,7 @@ namespace ThurstonBoardGameClub.Controllers
             // Done in the constructor
 
             // act
-            var result = controller.Message(null);
+            var result = controller.Message();
 
             // assert
             // Check to see if I got a RedirectToActionResult
@@ -62,7 +62,7 @@ namespace ThurstonBoardGameClub.Controllers
             repo.StoreMessageAsync(message3).Wait();
             repo.StoreMessageAsync(message3).Wait();
 
-            var controller = new HomeController(repo, null, null);
+            var controller = new HomeController(repo, null, null, null);
 
             // Act
             var filteredMessagesView = controller.MessageBoard(message2.From, null).Result as ViewResult;
@@ -93,7 +93,7 @@ namespace ThurstonBoardGameClub.Controllers
             repo.StoreMessageAsync(message3);
             repo.StoreMessageAsync(message3);
 
-            var controller = new HomeController(repo, null, null);
+            var controller = new HomeController(repo, null, null, null);
 
             // Act
             var filteredReviewsView = controller.MessageBoard(null, message2.Date.ToShortDateString()).Result as ViewResult;

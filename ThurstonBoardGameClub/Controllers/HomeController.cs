@@ -72,17 +72,28 @@ namespace ThurstonBoardGameClub.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Message()
         {
             return View();
         }
 
-/*        public IActionResult DeleteMessage(int messageId)
+        [HttpPost]
+        public IActionResult Message(Message message)
         {
-            // TODO: Do something like redirect if the delete fails
-            repo.DeleteMessageAsync(messageId);
-            return RedirectToAction("MessageBoard", "Home");
-        }*/
+            if (!ModelState.IsValid)
+            {
+                return View(message);
+            }
+            return RedirectToAction("Message");
+        }
+
+        /*        public IActionResult DeleteMessage(int messageId)
+                {
+                    // TODO: Do something like redirect if the delete fails
+                    repo.DeleteMessageAsync(messageId);
+                    return RedirectToAction("MessageBoard", "Home");
+                }*/
 
         [Authorize]
         public IActionResult Reply(int messageId)
