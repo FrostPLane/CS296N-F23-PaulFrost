@@ -11,7 +11,7 @@ using ThurstonBoardGameClub.Data;
 namespace ThurstonBoardGameClub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240120001826_Initial")]
+    [Migration("20240305034818_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -253,6 +253,34 @@ namespace ThurstonBoardGameClub.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("ThurstonBoardGameClub.Models.Reply", b =>
+                {
+                    b.Property<int>("ReplyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("FromId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("MessageId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReplyDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ReplyText")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ReplyId");
+
+                    b.HasIndex("FromId");
+
+                    b.HasIndex("MessageId");
+
+                    b.ToTable("Replies");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -302,6 +330,26 @@ namespace ThurstonBoardGameClub.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ThurstonBoardGameClub.Models.Reply", b =>
+                {
+                    b.HasOne("AppUser", "From")
+                        .WithMany()
+                        .HasForeignKey("FromId");
+
+                    b.HasOne("ThurstonBoardGameClub.Models.Message", null)
+                        .WithMany("Replies")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("From");
+                });
+
+            modelBuilder.Entity("ThurstonBoardGameClub.Models.Message", b =>
+                {
+                    b.Navigation("Replies");
                 });
 #pragma warning restore 612, 618
         }

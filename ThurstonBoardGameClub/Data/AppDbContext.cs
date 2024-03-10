@@ -11,5 +11,14 @@ namespace ThurstonBoardGameClub.Data
         { }
 
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Reply> Replies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                        .Property(m => m.MessageId)
+                        .ValueGeneratedOnAdd();
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

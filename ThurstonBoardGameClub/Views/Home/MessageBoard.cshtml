@@ -70,6 +70,36 @@
                         Date Sent: @message.Date.ToShortDateString()
                     </div>
                 </p>
+@*                 <a asp-action="DeleteMessageAsync" asp-route-messageId="@message.MessageId" class="btn-sm link col-3 m-3">Delete Message</a>
+ *@                <a asp-action="Reply" asp-route-messageId="@message.MessageId" class="btn-sm link col-3 m-3">Reply</a>
+
+                @if (message.Replies.Count != 0)
+                {
+                    <p>
+                        <a class="btn btn-link" data-toggle="collapse" href="#ReplyCollapse" role="button" aria-expanded="false" aria-controls="ReplyCollapse">
+                            View Replies
+                        </a>
+                    </p>
+                    <h5 class="m-3">Reply@(message.Replies.Count > 1 ? "s" : "")</h5>
+
+                    @foreach (Reply reply in message.Replies)
+                    {
+                        <p>
+                            <p class="m-3">@reply.ReplyText</p>
+                            <strong class="m-3">By:</strong>
+                                @reply.From
+                            <strong class="m-3">Date:</strong>
+                                @reply.ReplyDate.Date.ToString("dddd, MMMM dd, yyyy")
+                            <br />
+                        </p>
+                    }
+                }
+                else
+                {
+                    
+                }
+
+
             </div>
             <hr />
         }

@@ -9,5 +9,8 @@
         public string Text { get; set; }
         public int Priority { get; set; }
         public DateTime Date { get; set; }
+
+        // if there are replies this property will reference them
+        public ICollection<Reply> Replies { get; set; }
     }
 }

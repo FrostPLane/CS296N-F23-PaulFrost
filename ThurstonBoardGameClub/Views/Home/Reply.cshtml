@@ -1,0 +1,34 @@
+﻿@model ReplyVM
+@{
+    ViewData["Title"] = "Reply";
+}
+
+@using Microsoft.AspNetCore.Identity
+
+<h1>Reply</h1>
+<strong>Enter your response</strong>
+<br />
+<div asp-validation-summary="All" class="text-danger"></div>
+    <form asp-action="Reply" asp-controller="Home" method="post" class="container">
+        <input asp-for="MessageId" hidden value="@Model.MessageId">
+
+        <div class="row">
+            <div class="mb-1">
+                <label asp-for="From" class="form-label">From:</label>
+                <input asp-for="From" hidden value="@User.Identity.Name" class="form-control" /><br />
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <label asp-for="ReplyText" class="control-label  col-md-1">Reply</label><br />
+            <textarea asp-for="ReplyText" placeholder="Write your reply here" class="form-control col-md-6">
+            </textarea>
+
+            <span asp-validation-for="ReplyText" class="text-danger"></span>
+        </div>
+        <div class="row p-2">
+            <button type="submit" class="form-control btn btn-success col-2">Submit</button>
+        </div>
+    </form>
+<br />
+<hr />

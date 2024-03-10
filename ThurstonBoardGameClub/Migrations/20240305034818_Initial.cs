@@ -223,6 +223,36 @@ namespace ThurstonBoardGameClub.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.CreateTable(
+                name: "Replies",
+                columns: table => new
+                {
+                    ReplyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    ReplyText = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ReplyDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    FromId = table.Column<string>(type: "varchar(255)", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MessageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Replies", x => x.ReplyId);
+                    table.ForeignKey(
+                        name: "FK_Replies_AspNetUsers_FromId",
+                        column: x => x.FromId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Replies_Messages_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Messages",
+                        principalColumn: "MessageId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -259,6 +289,16 @@ namespace ThurstonBoardGameClub.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Replies_FromId",
+                table: "Replies",
+                column: "FromId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Replies_MessageId",
+                table: "Replies",
+                column: "MessageId");
         }
 
         /// <inheritdoc />
@@ -280,13 +320,16 @@ namespace ThurstonBoardGameClub.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Messages");
+                name: "Replies");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
         }
     }
 }

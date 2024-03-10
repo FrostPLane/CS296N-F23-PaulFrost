@@ -22,14 +22,15 @@ namespace ThurstonBoardGameClub.Data
             }
         }
 
-        public Message GetMessageById(int id)
+        public async Task<Message> GetMessageByIdAsync(int id)
         {
             var message = context.Messages
               .Include(message => message.From)
               .Include(message => message.Text)
               .Where(message => message.MessageId == id)
               .SingleOrDefault();
-            return message;
+            // return message
+            return await context.Messages.FindAsync(id);
         }
 
         public async Task<int> StoreMessageAsync(Message model)
@@ -38,6 +39,20 @@ namespace ThurstonBoardGameClub.Data
             context.Messages.Add(model);
             return await context.SaveChangesAsync();
             // returns a positive value if succussful
+        }
+
+        public int UpdateMessage(Message message)
+        {
+            context.Update(message);
+            // Returns the number of updated saved
+            return context.SaveChanges();
+        }
+
+        public async Task<int> DeleteMessageAsync(int messageId)
+        {
+            Message message = GetMessageByIdAsync(messageId).Result;
+            context.Messages.Remove(message);
+            return await context.SaveChangesAsync();
         }
     }
 }

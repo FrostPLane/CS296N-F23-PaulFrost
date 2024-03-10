@@ -13,12 +13,14 @@ namespace ThurstonBoardGameClub.Controllers
         ILogger<HomeController> _logger;
         IMessageRepository repo;
         UserManager<AppUser> userm;
+        IReplyRepository rerepo;
 
-        public HomeController(IMessageRepository r, ILogger<HomeController> logger, UserManager<AppUser> um)
+        public HomeController(IMessageRepository r, IReplyRepository ir, ILogger<HomeController> logger, UserManager<AppUser> um)
         {
             _logger = logger;
             repo = r;
             userm = um;
+            rerepo = ir;
         }
 
         [AllowAnonymous]
@@ -43,7 +45,7 @@ namespace ThurstonBoardGameClub.Controllers
             // All query parameters are null
             else
             {
-                messages = await repo.Messages.ToListAsync<Message>();
+                messages = await repo.Messages.Include(m => m.Replies).ThenInclude(r => r.From).ToListAsync();
             }
 
             return View(messages);
@@ -75,21 +77,33 @@ namespace ThurstonBoardGameClub.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Message(Message model)
+/*        public IActionResult DeleteMessage(int messageId)
         {
-            AppUser user = await userm.FindByNameAsync(User.Identity.Name);
-            model.From = user.UserName;
-            await repo.StoreMessageAsync(model);
+            // TODO: Do something like redirect if the delete fails
+            repo.DeleteMessageAsync(messageId);
+            return RedirectToAction("MessageBoard", "Home");
+        }*/
 
-            return RedirectToAction("Message", new { model.MessageId });
+        [Authorize]
+        public IActionResult Reply(int messageId)
+        {
+            var replyVM = new ReplyVM { MessageId = messageId };
+            return View(replyVM);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public async Task<RedirectToActionResult> Reply(ReplyVM replyVM)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // Reply is the domain model
+            var reply = new Reply { ReplyText = replyVM.ReplyText };
+            reply.From = userm.GetUserAsync(User).Result;
+            reply.ReplyDate = DateTime.Now;
+
+            reply.MessageId = replyVM.MessageId;
+
+            await rerepo.StoreReplyAsync(reply);
+
+            return RedirectToAction("MessageBoard", "Home");
         }
     }
 }
