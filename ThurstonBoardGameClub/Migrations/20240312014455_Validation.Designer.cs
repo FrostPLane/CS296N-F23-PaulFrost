@@ -11,7 +11,7 @@ using ThurstonBoardGameClub.Data;
 namespace ThurstonBoardGameClub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240310231510_Validation")]
+    [Migration("20240312014455_Validation")]
     partial class Validation
     {
         /// <inheritdoc />
