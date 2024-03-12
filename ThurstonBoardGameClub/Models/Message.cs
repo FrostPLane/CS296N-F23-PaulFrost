@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace ThurstonBoardGameClub.Models
 {
@@ -6,7 +7,7 @@ namespace ThurstonBoardGameClub.Models
     {
         public int MessageId { get; set; }
 
-        [StringLength(40, ErrorMessage = "The To string length cannot exceed 40 characters")]
+        [MaxLength(40, ErrorMessage = "The To string length cannot exceed 40 characters")]
         public string To { get; set; }
         public string From { get; set; }
 
@@ -20,6 +21,7 @@ namespace ThurstonBoardGameClub.Models
         public DateTime Date { get; set; }
 
         // if there are replies this property will reference them
-        public ICollection<Reply> Replies { get; set; }
+        /*[BindAttribute(Exclude)]*/
+        public ICollection<Reply>? Replies { get; set; }
     }
 }

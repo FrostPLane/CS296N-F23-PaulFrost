@@ -79,11 +79,12 @@ namespace ThurstonBoardGameClub.Controllers
         [HttpPost]
         public IActionResult Message(Message message)
         {
+            ModelState.Remove("Replies");
             if (ModelState.IsValid)
             {
                 return View(message);
             }
-            return RedirectToAction("MessageBoard");
+            return RedirectToAction("MessageBoard", "Home");
         }
 
         /*public IActionResult DeleteMessage(int messageId)

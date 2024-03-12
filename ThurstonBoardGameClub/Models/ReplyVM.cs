@@ -9,6 +9,6 @@ namespace ThurstonBoardGameClub.Models
         public string From { get; set; }
 
         /*[Required(ErrorMessage = "You must provide a reply body.")]*/
-        public String ReplyText { get; set; }
+        public string ReplyText { get; set; }
     }
 }

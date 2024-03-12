@@ -14,13 +14,12 @@
 
         <div class="row">
             <div class="mb-1">
-                <label asp-for="From" hidden class="form-label">From:</label>
-                <input asp-for="From" hidden value="@User.Identity.Name" class="form-control" /><br />
+                <label asp-for="From" class="form-label">From:</label>
+                <input asp-for="From" value="@User.Identity.Name" class="form-control" /><br />
             </div>
         </div>
 
         <div class="row p-2">
-            <span asp-validation-for="ReplyText" class="text-danger"></span>
             <label asp-for="ReplyText" class="control-label  col-md-1">Reply</label><br />
             <textarea asp-for="ReplyText" placeholder="Write your reply here" class="form-control col-md-6">
             </textarea>
