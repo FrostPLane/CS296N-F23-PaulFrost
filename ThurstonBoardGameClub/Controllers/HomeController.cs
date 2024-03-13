@@ -77,14 +77,18 @@ namespace ThurstonBoardGameClub.Controllers
         }
 
         [HttpPost]
-        public IActionResult Message(Message message)
+        public async Task<IActionResult> Message(Message message)
         {
-            ModelState.Remove("Replies");
             if (ModelState.IsValid)
             {
-                return View(message);
+                AppUser user = await userm.FindByNameAsync(User.Identity.Name);
+                message.From = user.UserName;
+                await repo.StoreMessageAsync(message);
+
+                return RedirectToAction("Messageboard", "Home");
             }
-            return RedirectToAction("MessageBoard", "Home");
+
+            return View(message);
         }
 
         /*public IActionResult DeleteMessage(int messageId)
