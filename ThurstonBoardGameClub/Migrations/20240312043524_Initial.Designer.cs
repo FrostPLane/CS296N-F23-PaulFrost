@@ -11,7 +11,7 @@ using ThurstonBoardGameClub.Data;
 namespace ThurstonBoardGameClub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240305034818_Initial")]
+    [Migration("20240312043524_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -246,7 +246,8 @@ namespace ThurstonBoardGameClub.Migrations
 
                     b.Property<string>("To")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)");
 
                     b.HasKey("MessageId");
 
@@ -338,13 +339,15 @@ namespace ThurstonBoardGameClub.Migrations
                         .WithMany()
                         .HasForeignKey("FromId");
 
-                    b.HasOne("ThurstonBoardGameClub.Models.Message", null)
+                    b.HasOne("ThurstonBoardGameClub.Models.Message", "Message")
                         .WithMany("Replies")
                         .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("From");
+
+                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("ThurstonBoardGameClub.Models.Message", b =>

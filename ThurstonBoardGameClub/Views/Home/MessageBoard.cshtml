@@ -75,13 +75,13 @@
 
                 @if (message.Replies.Count != 0)
                 {
-                    <p>
+@*                     <p>
                         <a class="btn btn-link" data-toggle="collapse" href="#ReplyCollapse" role="button" aria-expanded="false" aria-controls="ReplyCollapse">
                             View Replies
                         </a>
-                    </p>
+                    </p> *@
                     <h5 class="m-3">Reply@(message.Replies.Count > 1 ? "s" : "")</h5>
-
+                    <div class="text-center container" style="height:150px;width:500px;overflow-y:scroll;">
                     @foreach (Reply reply in message.Replies)
                     {
                         <p>
@@ -91,17 +91,17 @@
                             <strong class="m-3">Date:</strong>
                                 @reply.ReplyDate.Date.ToString("dddd, MMMM dd, yyyy")
                             <br />
+                            <hr class="solid">
                         </p>
                     }
+                    </div>
                 }
                 else
                 {
                     
                 }
-
-
             </div>
-            <hr />
+        <hr />
         }
     }
 </div>

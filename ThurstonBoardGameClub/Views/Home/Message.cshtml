@@ -1,4 +1,5 @@
 ﻿@model Message
+
 @{
     ViewData["Title"] = "Message";
 }
@@ -13,48 +14,47 @@
                 <div class="row">
                     <div class="mb-1">
                         <label asp-for="From" class="form-label">From:</label>
-                        <input asp-for="From" disabled value="@User.Identity.Name" class="form-control" /><br />
+                        <input asp-for="From" value="@User.Identity.Name" class="form-control" /><br />
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="mb-1 ">
+                        <span asp-validation-for="To" class="text-danger"></span>
+                        <label asp-for="To" class="form-label">To:</label>
+                        <input asp-for="To" class="form-control" /><br />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-1">
+                        <span asp-validation-for="Subject" class="text-danger"></span>
+                        <label asp-for="Subject" class="form-label">Subject:</label>
+                        <input asp-for="Subject" class="form-control" /><br />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-1">
+                        <label asp-for="Priority" class="form-label">Priority:</label>
+                        <input asp-for="Priority" class="form-control" /><br />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="mb-1">
+                        <span asp-validation-for="Text" class="text-danger"></span>
+                        <label asp-for="Text" class="form-label text-start">Text:</label>
+                        <textarea asp-for="Text" type="text" class="form-control"></textarea><br />
+                    </div>
+                </div>
+
+                <button type="submit" class="form-control btn btn-secondary">Send</button>
             }
             else
             {
-                <div class="row">
-                    <div class="mb-1">
-                        <label asp-for="From" class="form-label">From:</label>
-                        <input asp-for="From" class="form-control" /><br />
-                    </div>
-                </div>
+                <p>Account required to post messages.</p>
             }
-            <div class="row">
-                <div class="mb-1 ">
-                    <label asp-for="To" class="form-label">To:</label>
-                    <input asp-for="To" class="form-control" /><br />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="mb-1">
-                    <label asp-for="Subject" class="form-label">Subject:</label>
-                    <input asp-for="Subject" class="form-control" /><br />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="mb-1">
-                    <label asp-for="Priority" class="form-label">Priority:</label>
-                    <input asp-for="Priority" class="form-control" /><br />
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="mb-1">
-                    <label asp-for="Text" class="form-label text-start">Text:</label>
-                    <textarea asp-for="Text" type="text" class="form-control"></textarea><br />
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-secondary">Send</button>
         </div>
     </form>
 </div>

@@ -19,6 +19,7 @@ namespace ThurstonBoardGameClub.Data
                     Text = "First Text",
                     Priority = 1,
                     Date = DateTime.Parse("11/1/2023")
+
                 };
                 context.Messages.Add(message);  // queues up the message to be added to the DB
 
@@ -31,30 +32,6 @@ namespace ThurstonBoardGameClub.Data
                     Text = "Second Text",
                     Priority = 2,
                     Date = DateTime.Parse("11/2/2023")
-                };
-                context.Messages.Add(message);
-
-                message = new Message
-                {
-                    MessageId = 3,
-                    From = "Third Name",
-                    To = "Third To",
-                    Subject = "Third Subject",
-                    Text = "Third Text",
-                    Priority = 3,
-                    Date = DateTime.Parse("11/3/2023")
-                };
-                context.Messages.Add(message);
-
-                message = new Message
-                {
-                    MessageId = 4,
-                    From = "Fourth Name",
-                    To = "Fourth To",
-                    Subject = "Fourth Subject",
-                    Text = "Fourth Text",
-                    Priority = 4,
-                    Date = DateTime.Parse("11/4/2023")
                 };
                 context.Messages.Add(message);
 

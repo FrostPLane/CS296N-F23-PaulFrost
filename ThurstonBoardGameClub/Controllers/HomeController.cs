@@ -47,7 +47,6 @@ namespace ThurstonBoardGameClub.Controllers
             {
                 messages = await repo.Messages.Include(m => m.Replies).ThenInclude(r => r.From).ToListAsync();
             }
-
             return View(messages);
         }
 
@@ -65,19 +64,34 @@ namespace ThurstonBoardGameClub.Controllers
                    .Select(r => r);
         }
 
-
         public IActionResult History()
         {
             return View();
         }
 
         [Authorize]
+        [HttpGet]
         public IActionResult Message()
         {
             return View();
         }
 
-/*        public IActionResult DeleteMessage(int messageId)
+        [HttpPost]
+        public async Task<IActionResult> Message(Message message)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser user = await userm.FindByNameAsync(User.Identity.Name);
+                message.From = user.UserName;
+                await repo.StoreMessageAsync(message);
+
+                return RedirectToAction("Messageboard", "Home");
+            }
+
+            return View(message);
+        }
+
+        /*public IActionResult DeleteMessage(int messageId)
         {
             // TODO: Do something like redirect if the delete fails
             repo.DeleteMessageAsync(messageId);

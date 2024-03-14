@@ -243,7 +243,8 @@ namespace ThurstonBoardGameClub.Migrations
 
                     b.Property<string>("To")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(40)
+                        .HasColumnType("varchar(40)");
 
                     b.HasKey("MessageId");
 
