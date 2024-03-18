@@ -1,3 +1,6 @@
+# Site URL
+http://oddprograms-001-site1.ctempurl.com/
+
 # CS295N-F23-PaulFrost
 For cloning a specific branch use:
 git clone --branch branchname remote-repo-url
