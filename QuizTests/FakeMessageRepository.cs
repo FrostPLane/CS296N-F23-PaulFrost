@@ -39,13 +39,13 @@ namespace ThurstonBoardGameClub
         }*/
         Task<int> IMessageRepository.StoreMessageAsync(Message model)
         {
-            int status = 0;
+/*            int status = 0;
             if (model != null)
             {
                 model.MessageId = messages.Count + 1;
                 messages.Add(model);
                 status = 1;
-            }
+            }*/
             throw new System.NotImplementedException();
         }
 
