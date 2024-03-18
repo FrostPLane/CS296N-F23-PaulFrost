@@ -11,12 +11,13 @@ namespace ThurstonBoardGameClub
         private List<Message> messages = new List<Message>();
 
         IQueryable<Message> IMessageRepository.Messages => throw new System.NotImplementedException();
-        public Message GetMessageById(int id)
+
+/*        public Message GetMessageById(int id)
         {
             Message message = messages.Find(m => m.MessageId == id);
 
             return message;
-        }
+        }*/
         public IQueryable<Message> Messages
         {
             get
@@ -25,7 +26,7 @@ namespace ThurstonBoardGameClub
             }
         }
 
-        public int StoreMessageAsync(Message model)
+/*        public int StoreMessageAsync(Message model)
         {
             int status = 0;
             if (model != null)
@@ -35,16 +36,37 @@ namespace ThurstonBoardGameClub
                 status = 1;
             }
             return status;
-        }
-
-        Message IMessageRepository.GetMessageById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
+        }*/
         Task<int> IMessageRepository.StoreMessageAsync(Message model)
         {
+            int status = 0;
+            if (model != null)
+            {
+                model.MessageId = messages.Count + 1;
+                messages.Add(model);
+                status = 1;
+            }
             throw new System.NotImplementedException();
+        }
+
+        public async Task<Message> GetMessageByIdAsync(int id)
+        {
+            Message message = messages.Find(m => m.MessageId == id);
+
+            return message;
+        }
+
+
+        public int UpdateMessage(Message message)
+        {
+            // Not utilized in site.
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> DeleteMessageAsync(int messageId)
+        {
+            // Not utilized in site, but ready for deployment.
+            throw new NotImplementedException();
         }
     }
 }
